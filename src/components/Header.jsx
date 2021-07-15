@@ -60,7 +60,7 @@ export default function Header(props) {
             <Toolbar className={classes.root2}>
               <img className={classes.image} src={Logo} alt="" />
               <label forhtml="check-logout" className="user-name">
-                <AccountCircleIcon className="icon-user" />
+                <AccountCircleIcon color="primary" className="icon-user" />
                 <span>
                   {user.firstName} {user.lastName}
                 </span>

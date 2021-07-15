@@ -9,7 +9,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
-    padding: "70px 10px",
+    padding: "70px 60px",
   },
 }));
 
@@ -20,7 +20,7 @@ export default function Main() {
     <div className="header__content">
       <Container maxWidth="lg" className={clsx(classes.content)}>
         <div className="header__content_title">
-          <h1>The Ultimate Mobile And Web App For QLTS Preparation</h1>
+          <h1>Welcome to home of Xanh</h1>
           <h4>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit
             maiores facilis quidem alias dolores necessitatibus numquam

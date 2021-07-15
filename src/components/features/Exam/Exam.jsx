@@ -157,7 +157,7 @@ export default function Exam(props) {
                 </ul>
                 <div className="tutorial__button">
                   <ButtonV2
-                    width="120px"
+                    width="150px"
                     margin="unset"
                     padding="10px 10px"
                     background="rgb(167, 86, 252)"

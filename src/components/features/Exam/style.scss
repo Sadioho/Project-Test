@@ -36,47 +36,43 @@
   }
 }
 
-
 // tutorial
 
-.tutorial{
+.tutorial {
   display: flex;
   // justify-content: space-between;
   align-items: center;
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%,-50%);
+  transform: translate(-50%, -50%);
   width: 100%;
-  &__content{
+  &__content {
     text-align: center;
-    &_item{
+    padding: 0 50px;
+    &_item {
       text-align: start;
-      padding: 0 50px 0 0;
-     
-      li{
+      li {
         margin: 10px 0;
       }
     }
   }
-  &__button{
+  &__button {
     margin-top: 50px;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
   }
- 
 }
-
 
 //result
 
-.result{
+.result {
   display: flex;
   justify-content: space-between;
   border: 1px solid rgb(224, 224, 224);
 
-  &-item{
+  &-item {
     flex-grow: 1;
     text-align: center;
     padding: 10px;
@@ -86,7 +82,6 @@
   }
 }
 
-
 table {
   width: 100%;
   border-collapse: collapse;
@@ -94,7 +89,7 @@ table {
     padding: 1rem 0;
     &:not(:first-child) {
       text-align: center;
-    } 
+    }
     &:first-child {
       text-align: left;
     }
@@ -107,7 +102,6 @@ table {
     &:first-child {
       font-weight: bold;
       text-align: start;
-
     }
   }
   tr {
@@ -117,11 +111,9 @@ table {
   }
 }
 
-.text-result{
+.text-result {
   margin-top: 20px;
 }
-
-
 
 .view-result {
   border: 1px solid rgb(255, 255, 255);
@@ -150,13 +142,13 @@ table {
       cursor: pointer;
       color: white;
     }
-    .success2{
-        background-color: #52B788;
+    .success2 {
+      background-color: #52b788;
     }
-    .fail2{
-        background-color: #EF476F;
+    .fail2 {
+      background-color: #ef476f;
     }
-    .noneColor{
+    .noneColor {
       background-color: rgb(228, 228, 228) !important;
     }
   }

@@ -11,6 +11,8 @@ import { useHistory } from "react-router-dom";
 import * as yup from "yup";
 import LoginImg from "../../../image/login.png";
 import ButtonV2 from "../../common/button/ButtonV2";
+import { Spinner2 } from "../../spinner/Spinner2";
+
 
 
 const schema = yup.object().shape({
@@ -28,6 +30,10 @@ const useStyles = makeStyles((theme) => ({
     padding: "20px 10px",
     alignItems: "center",
   },
+  icon_loading:{
+    display:"flex",
+    alignItems: "center",
+  }
 }));
 
 export default function Signup(props) {
@@ -163,7 +169,9 @@ export default function Signup(props) {
             </p>
 
             <div className="button-input">
-              <div></div>
+              <div> </div>
+              <div className={classes.icon_loading}>
+              {!errorsCheckAccount && <Spinner2/>}
               <ButtonV2
                 type="submit"
                 width="130px"
@@ -175,6 +183,8 @@ export default function Signup(props) {
               >
                 Đăng ký
               </ButtonV2>
+              </div>
+             
             </div>
           </form>
         </div>

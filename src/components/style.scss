@@ -74,13 +74,14 @@
     position: absolute;
     bottom: -40px;
     right: 0;
-    width: 100%;
+    width: 100px;
     padding: 5px;
     text-align: center;
     box-shadow: 0 3px 5px 2px rgba(0, 0, 0, .1);
     background-color: rgb(255, 255, 255);
     display: none;
     cursor: pointer;
+    z-index: 1000;
 }
 #check-logout{
     display: none;

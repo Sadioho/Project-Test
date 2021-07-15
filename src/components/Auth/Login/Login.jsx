@@ -1,18 +1,18 @@
-import React, { useState } from "react";
-import LoginImg from "../../../image/login.png";
-import ButtonV2 from "../../common/button/ButtonV2";
-import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-
 import {
   Container,
   makeStyles,
   TextField,
-  Typography,
+  Typography
 } from "@material-ui/core";
-import {Link} from "react-router-dom";
-import { useHistory } from "react-router-dom";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import { Link, useHistory } from "react-router-dom";
+import * as yup from "yup";
+import LoginImg from "../../../image/login.png";
+import ButtonV2 from "../../common/button/ButtonV2";
+import { Spinner2 } from "../../spinner/Spinner2";
+
 
 const useStyles = makeStyles((theme) => ({
   content: {
@@ -20,6 +20,10 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "space-around",
     alignItems: "center",
   },
+  icon_loading:{
+    display:"flex",
+    alignItems: "center",
+  }
 }));
 
 const schema = yup.object().shape({
@@ -115,6 +119,9 @@ export default function Login(props) {
                   Đăng ký
                 </Link>
               </div>
+           
+             <div className={classes.icon_loading}>
+             {loginError && <Spinner2/>}
               <ButtonV2
                 type="submit"
                 width="100px"
@@ -125,6 +132,7 @@ export default function Login(props) {
               >
                 Login
               </ButtonV2>
+             </div>
             </div>
           </form>
         </div>
