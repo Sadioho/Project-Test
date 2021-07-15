@@ -31,6 +31,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
+   
   },
   paper: {
     backgroundColor: theme.palette.background.paper,
@@ -38,6 +39,7 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2, 4, 3),
     width: "400px",
     textAlign: "center",
+    borderRadius:"10px"
   },
 }));
 export default function ListQuestion(props) {
@@ -232,6 +234,7 @@ export default function ListQuestion(props) {
               backgroundColor="#B8B5FF"
               borderRadius="100px"
               onClick={minus}
+              disabled={numberQuestion===0 ? true : false}
             >
               <ArrowLeftIcon />
               Quay Lại
@@ -244,6 +247,8 @@ export default function ListQuestion(props) {
               backgroundColor="#B8B5FF"
               borderRadius="100px"
               onClick={plus}
+              disabled={numberQuestion === data.length-1 ? true : false}
+              
             >
               Câu kế tiếp
               <ArrowRightIcon />
@@ -327,6 +332,7 @@ export default function ListQuestion(props) {
                 backgroundColor="#B8B5FF"
                 borderRadius="100px"
                 onClick={handleClose}
+                
               >
                 Làm tiếp
               </ButtonV2>
