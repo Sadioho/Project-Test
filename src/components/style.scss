@@ -1,0 +1,93 @@
+.header {
+  background-image: url("../image/top-bg.2b2fefa2312499739913.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  min-height: 100vh;
+  &__content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    &_title {
+      padding-right: 70px;
+    }
+    &_login {
+      padding: 40px;
+      flex-grow: 1;
+    }
+  }
+}
+
+.footer {
+  display: flex;
+  justify-content: space-evenly;
+  align-content: center;
+  position: absolute;
+  bottom: 10px;
+  opacity: 0.3;
+  font-size: 15px;
+  &__item {
+    display: flex;
+    align-content: center;
+    margin: 0 50px;
+    &:first-child {
+      font-weight: bold;
+    }
+  }
+}
+
+//input
+
+.button-input {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.bg_login {
+  background: white !important;
+  color: black !important;
+  box-shadow: unset !important;
+}
+.bg_header {
+  background: unset !important;
+  box-shadow: unset !important;
+}
+.user-name {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  position: relative;
+  .icon-user {
+    width: 2rem !important;
+    height: 2rem !important;
+  }
+}
+
+.header-login {
+  padding: 20px;
+}
+
+.logout{
+    position: absolute;
+    bottom: -40px;
+    right: 0;
+    width: 100%;
+    padding: 5px;
+    text-align: center;
+    box-shadow: 0 3px 5px 2px rgba(0, 0, 0, .1);
+    background-color: white;
+    display: none;
+}
+#check-logout{
+    display: none;
+}
+#check-logout:checked ~ .logout{
+    display: block;
+}
+
+.login__errors{
+  color:red;
+}
