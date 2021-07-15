@@ -1,6 +1,4 @@
-import {
-  Container
-} from "@material-ui/core";
+import { Container } from "@material-ui/core";
 import AppBar from "@material-ui/core/AppBar";
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
@@ -9,11 +7,10 @@ import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import CopyrightIcon from "@material-ui/icons/Copyright";
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import Logo from "../image/logo.png";
 import { _isEmpty } from "./helpers";
 import "./style.scss";
-
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -47,19 +44,30 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Header(props) {
   const classes = useStyles();
+  const user = JSON.parse(localStorage.getItem("my-info"));
+  const history=useHistory()
+  function signout() {
+    props.setloginSuccess(false);
+    props.setListResult([]);
+    props.setendResult(false)
+    localStorage.removeItem("my-info");
+    history.push("/login");
+  }
   return (
     <div className="header">
-      {!_isEmpty(localStorage.getItem("my-info")) ? (
+      {props.loginSuccess===true ? (
         <div className="header-login">
           <AppBar position="static" className="bg_login">
             <Toolbar className={classes.root2}>
               <img className={classes.image} src={Logo} alt="" />
               <label forhtml="check-logout" className="user-name">
                 <AccountCircleIcon className="icon-user" />
-                <span>Anh Ho</span>
+                <span>
+                  {user.firstName} {user.lastName}
+                </span>
                 <ArrowDropDownIcon />
                 <input type="checkbox" id="check-logout" />
-                <div className="logout" onClick={() => console.log("Text")}>
+                <div className="logout" onClick={signout}>
                   Đăng xuất
                 </div>
               </label>

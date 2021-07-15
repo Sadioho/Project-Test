@@ -85,3 +85,79 @@
     }
   }
 }
+
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  th {
+    padding: 1rem 0;
+    &:not(:first-child) {
+      text-align: center;
+    } 
+    &:first-child {
+      text-align: left;
+    }
+  }
+  td {
+    padding: 1rem 0;
+    &:not(:first-child) {
+      text-align: center;
+    }
+    &:first-child {
+      font-weight: bold;
+      text-align: start;
+
+    }
+  }
+  tr {
+    &:not(:last-child) {
+      border-bottom: 1px solid rgb(214, 214, 214);
+    }
+  }
+}
+
+.text-result{
+  margin-top: 20px;
+}
+
+
+
+.view-result {
+  border: 1px solid rgb(255, 255, 255);
+  padding: 10px;
+  border-radius: 5px;
+  background-color: rgba(255, 255, 255, 0.185);
+
+  .main__ratings_header {
+    color: EF476F;
+    p {
+      font-size: 15px;
+    }
+  }
+  &__number {
+    margin: 30px 0;
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 15px;
+    &-box {
+      text-align: center;
+      background-color: rgb(228, 228, 228);
+      padding: 10px 0;
+      width: 12.1%;
+      margin: 1%;
+      border-radius: 5px;
+      cursor: pointer;
+      color: white;
+    }
+    .success2{
+        background-color: #52B788;
+    }
+    .fail2{
+        background-color: #EF476F;
+    }
+    .noneColor{
+      background-color: rgb(228, 228, 228) !important;
+    }
+  }
+}

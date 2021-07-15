@@ -1,20 +1,14 @@
 import {
   Backdrop,
-  Button,
   Checkbox,
   CircularProgress,
   Container,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
   Fade,
   FormControlLabel,
   makeStyles,
   Modal,
   Radio,
   RadioGroup,
-  Typography,
 } from "@material-ui/core";
 import React, { useState } from "react";
 import AccessAlarmsIcon from "@material-ui/icons/AccessAlarms";
@@ -69,6 +63,7 @@ export default function ListQuestion(props) {
   };
 
   async function handleFinish() {
+    let ramdomID = Math.random().toString(36).substring(7);
     props.setendResult(true);
     history.push("/");
     let count = countResult(props.listResult, data, 0);
@@ -92,7 +87,7 @@ export default function ListQuestion(props) {
           Accept: "application/json",
         },
       });
-      // stateGlobal.setreload(ramdomID);
+      props.setreload(ramdomID);
     } else {
       if (checkPoint.point < point) {
         await fetch(`http://localhost:3000/users/${id}`, {
@@ -103,7 +98,7 @@ export default function ListQuestion(props) {
             Accept: "application/json",
           },
         });
-        // stateGlobal.setreload(ramdomID);
+        props.setreload(ramdomID);
       }
       if (checkPoint.point === point) {
         if (checkPoint.time > time) {
@@ -115,13 +110,11 @@ export default function ListQuestion(props) {
               Accept: "application/json",
             },
           });
-          // stateGlobal.setreload(ramdomID);
+          props.setreload(ramdomID);
         }
       }
     }
   }
-
-  console.log(props.listUser);
 
   const [listItemQuestion, setlistItemQuestion] = useState(false);
   const [listReview, setlistReview] = useState([]);
@@ -291,7 +284,7 @@ export default function ListQuestion(props) {
         </Container>
       </div>
 
-      {/* <Modal
+      <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
         className={classes.modal}
@@ -342,48 +335,7 @@ export default function ListQuestion(props) {
             </div>
           </div>
         </Fade>
-      </Modal> */}
-
-
-
-
-
-<Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>
-        <DialogTitle id="customized-dialog-title" onClose={handleClose}>
-          Modal title
-        </DialogTitle>
-        <DialogContent dividers>
-          <Typography gutterBottom>
-            Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis
-            in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
-          </Typography>
-          <Typography gutterBottom>
-            Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis
-            lacus vel augue laoreet rutrum faucibus dolor auctor.
-          </Typography>
-          <Typography gutterBottom>
-            Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel
-            scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus
-            auctor fringilla.
-          </Typography>
-        </DialogContent>
-        <DialogActions>
-          <Button autoFocus onClick={handleClose} color="primary">
-            Save changes
-          </Button>
-        </DialogActions>
-      </Dialog>
-
-
-
-
-
-
-
-
-
-
-
+      </Modal>
     </div>
   );
 }

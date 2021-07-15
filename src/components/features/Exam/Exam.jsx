@@ -30,7 +30,10 @@ const useStyles = makeStyles({
 export default function Exam(props) {
   const [tutorial, setTutorial] = useState(false);
   const classes = useStyles();
-  
+  const [number, setnumber] = useState(5);
+  let arrUser = props.listUser.sort((a, b) =>
+    b.point - a.point === 0 ? a.time - b.time : b.point - a.point
+  );
   return (
     <div className="header__content exam">
       <div className="exam__content">
@@ -42,23 +45,88 @@ export default function Exam(props) {
         </div>
         <div className="exam__content_right">
           {props.endResult ? (
-            <div className="result">
-              <div className="result-item result-rank">
-                <img src={rank} alt="" />
+            <>
+              <div className="result">
+                <div className="result-item result-rank">
+                  <img src={rank} alt="" />
+                  <table>
+                    <tbody>
+                      <tr>
+                        <th>Tên</th>
+                        <th>Điểm</th>
+                        <th>Thời gian</th>
+                      </tr>
+                      {arrUser.map(
+                        (item, index) =>
+                          index < number &&
+                          item.point >= 0 && (
+                            <tr key={index}>
+                              <td>
+                                🥇{item.firstName} {item.lastName}
+                              </td>
+                              <td>{item.point}</td>
+                              <td>{format_second_to_minutes(item.time)}</td>
+                            </tr>
+                          )
+                      )}
+                    </tbody>
+                  </table>
+                </div>
+                <div className="result-item result-score">
+                  <img src={score} alt="" />
+                  <h1 className="text-result">
+                    {props.showResult}/{props.data.length}
+                    <div className="view-result">
+                      <div className="main__ratings_header">
+                        <p>Đáp án</p>
+                      </div>
+                      <div className="view-result__number">
+                        {props.data.map((item, index) => (
+                          <span
+                            onClick={() => console.log(item.id)}
+                            className={`view-result__number-box 
+                            ${
+                              props.listResult.filter(
+                                (i) =>
+                                  i.result_choise === item.result_true &&
+                                  i.id_question === item.id
+                              ).length !== 0
+                                ? "success2"
+                                : "fail2"
+                            }
+                              `}
+                          >
+                            {index + 1}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </h1>
+                </div>
+                <div className="result-item result-question">
+                  <img src={question} alt="" />
+                  <h1 className="text-result">{props.showResult * 1} </h1>
+                </div>
+                <div className="result-item result-time">
+                  <img src={time} alt="" />
+                  <h1 className="text-result">
+                    {format_second_to_minutes(2700 - props.time)}
+                  </h1>
+                </div>
               </div>
-              <div className="result-item result-score">
-                <img src={score} alt="" />
-                {props.showResult}/{props.data.length}
-              </div>
-              <div className="result-item result-question">
-                <img src={question} alt="" />
-                {props.showResult * 1}
-              </div>
-              <div className="result-item result-time">
-                <img src={time} alt="" />
-                {format_second_to_minutes(2700-props.time)}
-              </div>
-            </div>
+              <ButtonV2
+                width="120px"
+                margin="20px 0"
+                padding="10px 10px"
+                background="rgb(167, 86, 252)"
+                backgroundColor="#B8B5FF"
+                borderRadius="100px"
+                onClick={() => props.setendResult(false)}
+              >
+                <ArrowBackIosIcon />
+                Quay lại
+              </ButtonV2>
+            </>
           ) : tutorial ? (
             <div className="tutorial">
               <div className="tutorial__img">
@@ -133,8 +201,8 @@ export default function Exam(props) {
                   margin="unset"
                   width="100px"
                   padding="5px"
-                  color="black"
-                  backgroundColor="#00E4E3"
+                  background="rgb(167, 86, 252)"
+                  backgroundColor="#B8B5FF"
                   onClick={() => setTutorial(true)}
                 >
                   Bắt đầu

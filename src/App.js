@@ -29,7 +29,6 @@ export default function App() {
 
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  
 
   async function fetchUsers() {
     const requestUrl = "http://localhost:3000/users";
@@ -58,7 +57,7 @@ export default function App() {
 
   return (
     <Router>
-      <Header loginSuccess={loginSuccess} />
+      <Header loginSuccess={loginSuccess} setendResult={setendResult} setloginSuccess={setloginSuccess} setListResult={setListResult}/>
       <Switch>
         <Route
           path="/login"
@@ -88,45 +87,59 @@ export default function App() {
           path="/exam"
           render={() => {
             return !_isEmpty(localStorage.getItem("my-info")) ? (
-              <Exam endResult={endResult}  data={data} showResult={showResult} time={time}/>
+              <Exam
+                endResult={endResult}
+                data={data}
+                showResult={showResult}
+                time={time}
+                listUser={listUser}
+                listResult={listResult}
+
+               
+              />
             ) : (
               <Redirect to="/" />
             );
           }}
         />
 
-       
-          <Route
-            path="/question"
-            render={() => {
-              return !_isEmpty(localStorage.getItem("my-info")) ? (
-
-                
-                    <ListQuestion
-                  setendResult={setendResult}
-                  data={data}
-                  isLoading={isLoading}
-                  listResult={listResult}
-                  setListResult={setListResult}
-                  showResult={showResult}
-                  setShowResult={setShowResult}
-                  setTime={setTime}
-                  listUser={listUser}
-                />
-           
-              
-              ) : (
-                <Redirect to="/" />
-              );
-            }}
-          />
-     
+        <Route
+          path="/question"
+          render={() => {
+            return !_isEmpty(localStorage.getItem("my-info")) ? (
+              <ListQuestion
+                setendResult={setendResult}
+                data={data}
+                isLoading={isLoading}
+                listResult={listResult}
+                setListResult={setListResult}
+                showResult={showResult}
+                setShowResult={setShowResult}
+                setTime={setTime}
+                listUser={listUser}
+                setreload={setreload}
+              />
+            ) : (
+              <Redirect to="/" />
+            );
+          }}
+        />
 
         <Route
           path="/"
           render={() => {
             return !_isEmpty(localStorage.getItem("my-info")) ? (
-              <Exam endResult={endResult}  showResult={showResult}   data={data} time={time}/>
+              <Exam
+                endResult={endResult}
+                showResult={showResult}
+                data={data}
+                time={time}
+                listUser={listUser}
+                setendResult={setendResult}
+                listResult={listResult}
+
+               
+              />
             ) : (
               <Main />
             );
