@@ -1,8 +1,4 @@
-import {
-    createTheme,
-    CssBaseline,
-    ThemeProvider
-} from "@material-ui/core";
+import { createTheme, CssBaseline, ThemeProvider } from "@material-ui/core";
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
@@ -14,7 +10,7 @@ const theme = createTheme({
       "@global": {
         html: {
           WebkitFontSmoothing: "auto",
-        }
+        },
       },
     },
   },

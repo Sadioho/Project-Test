@@ -1,7 +1,6 @@
 import {
   Backdrop,
   Checkbox,
-  CircularProgress,
   Container,
   Fade,
   FormControlLabel,
@@ -10,22 +9,22 @@ import {
   Radio,
   RadioGroup,
 } from "@material-ui/core";
-import React, { useState } from "react";
 import AccessAlarmsIcon from "@material-ui/icons/AccessAlarms";
-import "./style.scss";
-import ButtonV2 from "../../common/button/ButtonV2";
-import ArrowRightIcon from "@material-ui/icons/ArrowRight";
 import ArrowLeftIcon from "@material-ui/icons/ArrowLeft";
+import ArrowRightIcon from "@material-ui/icons/ArrowRight";
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
+import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-import { Spinner } from "../../spinner/Spinner";
+import Clock from "../../clock/Clock";
+import ButtonV2 from "../../common/button/ButtonV2";
 import {
   countResult,
   defaultChecked,
   filterByResult,
   format_second_to_minutes,
 } from "../../helpers";
-import Clock from "../../clock/Clock";
+import { Spinner } from "../../spinner/Spinner";
+import "./style.scss";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -42,10 +41,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 export default function ListQuestion(props) {
-
   const classes = useStyles();
   const history = useHistory();
-  
+
   const [open, setOpen] = useState(false);
   const [timeCountDown, setTimeCountDown] = useState(0);
   const [timePause, setTimePause] = useState(0);

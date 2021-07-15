@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { format_second_to_minutes } from "../helpers/index";
 
 const Clock = (props) => {
@@ -15,13 +15,13 @@ const Clock = (props) => {
 
     if (timeDown === 0) {
       props.handleFinishV2();
-      props.setTimePause(0)
+      props.setTimePause(0);
     }
 
     return () => {
       clearInterval(timeInterval);
     };
-  }, [timeDown]);
+  }, [timeDown,props]);
 
   return <>{format_second_to_minutes(timeDown)}</>;
 };

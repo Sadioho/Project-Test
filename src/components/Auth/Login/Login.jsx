@@ -10,7 +10,7 @@ import {
   TextField,
   Typography,
 } from "@material-ui/core";
-import Link from "react-router-dom/Link";
+import {Link} from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
@@ -108,7 +108,7 @@ export default function Login(props) {
             </p>
             <div className="button-input">
               <div>
-                <Link href="#" variant="body2">
+                <Link to="/" variant="body2">
                   Quên mật khẩu ?
                 </Link>
                 <Link to="/signup" variant="body2">

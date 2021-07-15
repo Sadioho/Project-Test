@@ -9,7 +9,6 @@ import CopyrightIcon from "@material-ui/icons/Copyright";
 import React from "react";
 import { Link, useHistory } from "react-router-dom";
 import Logo from "../image/logo.png";
-import { _isEmpty } from "./helpers";
 import "./style.scss";
 
 const useStyles = makeStyles((theme) => ({
@@ -45,17 +44,17 @@ const useStyles = makeStyles((theme) => ({
 export default function Header(props) {
   const classes = useStyles();
   const user = JSON.parse(localStorage.getItem("my-info"));
-  const history=useHistory()
+  const history = useHistory();
   function signout() {
     props.setloginSuccess(false);
     props.setListResult([]);
-    props.setendResult(false)
+    props.setendResult(false);
     localStorage.removeItem("my-info");
     history.push("/login");
   }
   return (
     <div className="header">
-      {props.loginSuccess===true ? (
+      {props.loginSuccess === true ? (
         <div className="header-login">
           <AppBar position="static" className="bg_login">
             <Toolbar className={classes.root2}>

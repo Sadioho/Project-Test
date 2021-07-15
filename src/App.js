@@ -1,19 +1,17 @@
-import React, { Component, useEffect, useState } from "react";
-import Header from "./components/Header";
-import Login from "../src/components/Auth/Login/Login";
-import Signup from "../src/components/Auth/Signup/Signup";
-import Main from "../src/components/Layout/Main";
-import Exam from "../src/components/features/Exam/Exam";
-import { _isEmpty } from "./components/helpers/index";
-
-import ListQuestion from "./components/features/ListQuestion/ListQuestion";
-
+import React, { useEffect, useState } from "react";
 import {
   BrowserRouter as Router,
-  Switch,
-  Route,
   Redirect,
+  Route,
+  Switch
 } from "react-router-dom";
+import Login from "../src/components/Auth/Login/Login";
+import Signup from "../src/components/Auth/Signup/Signup";
+import Exam from "../src/components/features/Exam/Exam";
+import Main from "../src/components/Layout/Main";
+import ListQuestion from "./components/features/ListQuestion/ListQuestion";
+import Header from "./components/Header";
+import { _isEmpty } from "./components/helpers/index";
 
 export const DataApp = React.createContext(null);
 
@@ -57,7 +55,12 @@ export default function App() {
 
   return (
     <Router>
-      <Header loginSuccess={loginSuccess} setendResult={setendResult} setloginSuccess={setloginSuccess} setListResult={setListResult}/>
+      <Header
+        loginSuccess={loginSuccess}
+        setendResult={setendResult}
+        setloginSuccess={setloginSuccess}
+        setListResult={setListResult}
+      />
       <Switch>
         <Route
           path="/login"
@@ -94,8 +97,6 @@ export default function App() {
                 time={time}
                 listUser={listUser}
                 listResult={listResult}
-
-               
               />
             ) : (
               <Redirect to="/" />
@@ -137,8 +138,6 @@ export default function App() {
                 listUser={listUser}
                 setendResult={setendResult}
                 listResult={listResult}
-
-               
               />
             ) : (
               <Main />

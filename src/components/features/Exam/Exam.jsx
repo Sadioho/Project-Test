@@ -3,21 +3,20 @@ import {
   CardActions,
   CardContent,
   makeStyles,
-  Typography,
+  Typography
 } from "@material-ui/core";
-import React from "react";
-import "./style.scss";
-import ButtonV2 from "../../common/button/ButtonV2";
-import tutorial_img from "../../../image/exam.png";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import rank from "../../../image/trophy.png";
+import tutorial_img from "../../../image/exam.png";
+import time from "../../../image/Group8307.png";
 import question from "../../../image/question.png";
 import score from "../../../image/target.png";
-import time from "../../../image/Group8307.png";
-import { useState } from "react";
+import rank from "../../../image/trophy.png";
+import ButtonV2 from "../../common/button/ButtonV2";
 import { format_second_to_minutes } from "../../helpers";
+import "./style.scss";
 
 const useStyles = makeStyles({
   root: {
@@ -59,7 +58,7 @@ export default function Exam(props) {
                       {arrUser.map(
                         (item, index) =>
                           index < number &&
-                          item.point >= 0 && (
+                          item.point >= 7 && (
                             <tr key={index}>
                               <td>
                                 🥇{item.firstName} {item.lastName}
@@ -83,6 +82,7 @@ export default function Exam(props) {
                       <div className="view-result__number">
                         {props.data.map((item, index) => (
                           <span
+                            key={index}
                             onClick={() => console.log(item.id)}
                             className={`view-result__number-box 
                             ${
