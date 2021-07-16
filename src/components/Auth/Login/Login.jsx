@@ -136,7 +136,7 @@ export default function Login(props) {
             </div>
           </form>
         </div>
-        <img src={LoginImg} alt="" />
+        <img src={LoginImg} alt="" width="514" height="539"/>
       </Container>
     </div>
   );

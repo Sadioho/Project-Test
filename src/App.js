@@ -21,13 +21,10 @@ export default function App() {
   const [loginSuccess, setloginSuccess] = useState(false);
   const [endResult, setendResult] = useState(false);
   const [listResult, setListResult] = useState([]);
-
   const [showResult, setShowResult] = useState(0);
   const [time, setTime] = useState(null);
-
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-
   async function fetchUsers() {
     const requestUrl = "http://localhost:3000/users";
     const response = await fetch(requestUrl);
@@ -97,6 +94,10 @@ export default function App() {
                 time={time}
                 listUser={listUser}
                 listResult={listResult}
+                setListResult={setListResult}
+                setendResult={setendResult}
+
+
               />
             ) : (
               <Redirect to="/" />
@@ -138,6 +139,7 @@ export default function App() {
                 listUser={listUser}
                 setendResult={setendResult}
                 listResult={listResult}
+                setListResult={setListResult}
               />
             ) : (
               <Main />

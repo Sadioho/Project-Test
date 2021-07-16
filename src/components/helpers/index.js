@@ -22,13 +22,6 @@ export const defaultChecked = (arr1, data, item) => {
       .length !== 0
   );
 };
-// // checked xem lại
-// export const defaultCheckedV2 = (arr2, data) => {
-//   return (
-//     arr2.filter((a) => a.id_question === data.id && a.checked === true)
-//       .length !== 0
-//   );
-// };
 
 export const countResult = (arr1, arr2, count) => {
   arr1 &&

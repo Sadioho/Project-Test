@@ -64,7 +64,7 @@ export default function ListQuestion(props) {
 
   async function handleFinish() {
     let ramdomID = Math.random().toString(36).substring(7);
-    props.setendResult(true);
+    props.setendResult(true); 
     history.push("/");
     let count = countResult(props.listResult, data, 0);
     props.setShowResult(count);

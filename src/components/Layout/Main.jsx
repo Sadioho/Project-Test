@@ -28,7 +28,7 @@ export default function Main() {
             sapiente praesentium inventore vitae natus, veniam ad!
           </h4>
         </div>
-        <img src={BgTop} alt="" />
+        <img src={BgTop} alt="" width="479" height="453.98"/>
       </Container>
     </div>
   );

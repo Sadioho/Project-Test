@@ -29,10 +29,14 @@ const useStyles = makeStyles({
 export default function Exam(props) {
   const [tutorial, setTutorial] = useState(false);
   const classes = useStyles();
-  const [number, setnumber] = useState(5);
   let arrUser = props.listUser.sort((a, b) =>
     b.point - a.point === 0 ? a.time - b.time : b.point - a.point
   );
+  function resetData(){
+    props.setListResult([]);
+    props.setendResult(false);
+
+  }
   return (
     <div className="header__content exam">
       <div className="exam__content">
@@ -57,7 +61,7 @@ export default function Exam(props) {
                       </tr>
                       {arrUser.map(
                         (item, index) =>
-                          index < number &&
+                          index < 7 &&
                           item.point >= 7 && (
                             <tr key={index}>
                               <td>
@@ -121,7 +125,7 @@ export default function Exam(props) {
                 background="rgb(167, 86, 252)"
                 backgroundColor="#B8B5FF"
                 borderRadius="100px"
-                onClick={() => props.setendResult(false)}
+                onClick={resetData }
               >
                 <ArrowBackIosIcon />
                 Quay lại
