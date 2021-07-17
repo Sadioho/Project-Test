@@ -7,17 +7,16 @@ const styles = makeStyles({
     background: (props) => props.background || "white",
     border: (props) => props.border || 0,
     color: (props) => props.color || "white",
-    width: (props) => props.width || 200,
-    padding: (props) => props.padding || "10px 30px",
-    boxShadow: "0 3px 5px 2px rgba(0, 0, 0, .1)",
-    textTransform: "capitalize",
+    width: (props) => props.width || 150,
+    padding: (props) => props.padding || "10px",
     borderRadius: (props) => props.borderRadius,
     margin: (props) => props.margin || "5px auto",
+    float: (props) => props.float,
+    boxShadow: "0 3px 5px 2px rgba(0, 0, 0, .1)",
+    textTransform: "capitalize",
     transition: "all 0.5s",
     display: "flex",
-    alignItems:"center",
-
-    float: (props) => props.float,
+    alignItems: "center",
     "&:hover": {
       backgroundColor: (props) => props.backgroundColor || "#ffa726",
       color: "white",
@@ -26,29 +25,9 @@ const styles = makeStyles({
 });
 
 export default function ButtonV2(props) {
-  const {
-    background,
-    width,
-    children,
-    backgroundColor,
-    margin,
-    padding,
-    borderRadius,
-    border,
-    color,
-    float,
-    ...other
-  } = props;
+  const { children, ...other } = props;
   const classes = styles({
-    background,
-    width,
-    backgroundColor,
-    margin,
-    padding,
-    borderRadius,
-    border,
-    color,
-    float,
+    ...other,
   });
   return (
     <Button className={classes.root} {...other}>

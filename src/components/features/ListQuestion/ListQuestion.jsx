@@ -31,7 +31,6 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-   
   },
   paper: {
     backgroundColor: theme.palette.background.paper,
@@ -39,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2, 4, 3),
     width: "400px",
     textAlign: "center",
-    borderRadius:"10px"
+    borderRadius: "10px",
   },
 }));
 export default function ListQuestion(props) {
@@ -64,7 +63,7 @@ export default function ListQuestion(props) {
 
   async function handleFinish() {
     let ramdomID = Math.random().toString(36).substring(7);
-    props.setendResult(true); 
+    props.setendResult(true);
     history.push("/");
     let count = countResult(props.listResult, data, 0);
     props.setShowResult(count);
@@ -227,28 +226,23 @@ export default function ListQuestion(props) {
         <Container className="list-question__footer_content-1">
           <div className="list-question__footer_content">
             <ButtonV2
-              width="150px"
               margin="unset"
-              padding="10px 10px"
               background="#7b4fff"
               backgroundColor="#B8B5FF"
               borderRadius="100px"
               onClick={minus}
-              disabled={numberQuestion===0 ? true : false}
+              disabled={numberQuestion === 0 ? true : false}
             >
               <ArrowLeftIcon />
               Quay Lại
             </ButtonV2>
             <ButtonV2
-              width="150px"
               margin="0 10px"
-              padding="10px 10px"
               background="#7b4fff"
               backgroundColor="#B8B5FF"
               borderRadius="100px"
               onClick={plus}
-              disabled={numberQuestion === data.length-1 ? true : false}
-              
+              disabled={numberQuestion === data.length - 1 ? true : false}
             >
               Câu kế tiếp
               <ArrowRightIcon />
@@ -266,7 +260,7 @@ export default function ListQuestion(props) {
                   onChange={(e) =>
                     setCheck(e.target.checked, data[numberQuestion].id)
                   }
-                  name="checkedA"
+                  name="checked"
                 />
               }
               label="Xem lại"
@@ -314,9 +308,7 @@ export default function ListQuestion(props) {
             <p>Bạn đồng ý nộp bài ?? </p>
             <div className="modal-button">
               <ButtonV2
-                width="150px"
                 margin="0 10px"
-                padding="10px 10px"
                 background="#7b4fff"
                 backgroundColor="#B8B5FF"
                 borderRadius="100px"
@@ -325,14 +317,11 @@ export default function ListQuestion(props) {
                 Nộp bài
               </ButtonV2>
               <ButtonV2
-                width="150px"
                 margin="0 10px"
-                padding="10px 10px"
                 background="#7b4fff"
                 backgroundColor="#B8B5FF"
                 borderRadius="100px"
                 onClick={handleClose}
-                
               >
                 Làm tiếp
               </ButtonV2>

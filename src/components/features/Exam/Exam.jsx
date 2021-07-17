@@ -174,9 +174,7 @@ export default function Exam(props) {
                   </ButtonV2>
                   <Link to="/question">
                     <ButtonV2
-                      width="150px"
                       margin="unset"
-                      padding="10px 10px"
                       background="rgb(167, 86, 252)"
                       backgroundColor="#B8B5FF"
                       borderRadius="100px"

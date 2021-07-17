@@ -8,10 +8,11 @@ import {
 import Login from "../src/components/Auth/Login/Login";
 import Signup from "../src/components/Auth/Signup/Signup";
 import Exam from "../src/components/features/Exam/Exam";
-import Main from "../src/components/Layout/Main";
+import Main from "./components/Layout/Main/Main";
 import ListQuestion from "./components/features/ListQuestion/ListQuestion";
-import Header from "./components/Header";
+import Header from "./components/Layout/Header/Header";
 import { _isEmpty } from "./components/helpers/index";
+import axios from "axios";
 
 export const DataApp = React.createContext(null);
 
@@ -25,11 +26,14 @@ export default function App() {
   const [time, setTime] = useState(null);
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+
   async function fetchUsers() {
     const requestUrl = "http://localhost:3000/users";
-    const response = await fetch(requestUrl);
-    const responseJSON = await response.json();
-    setlistUser(responseJSON);
+    // const response = await fetch(requestUrl);
+    // const responseJSON = await response.json();
+    const responseJSON=await axios.get(requestUrl)
+    console.log(responseJSON.data);
+    setlistUser(responseJSON.data);
   }
 
   useEffect(() => {
@@ -96,8 +100,6 @@ export default function App() {
                 listResult={listResult}
                 setListResult={setListResult}
                 setendResult={setendResult}
-
-
               />
             ) : (
               <Redirect to="/" />

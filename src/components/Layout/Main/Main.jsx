@@ -2,7 +2,7 @@ import { Container, makeStyles } from "@material-ui/core";
 import React from "react";
 
 import clsx from "clsx";
-import BgTop from "../../image/top-right.png";
+import BgTop from "../../../image/top-right.png";
 
 const useStyles = makeStyles((theme) => ({
   content: {

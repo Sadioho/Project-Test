@@ -8,7 +8,7 @@ import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import CopyrightIcon from "@material-ui/icons/Copyright";
 import React from "react";
 import { Link, useHistory } from "react-router-dom";
-import Logo from "../image/logo.png";
+import Logo from "../../../image/logo.png";
 import "./style.scss";
 
 const useStyles = makeStyles((theme) => ({
