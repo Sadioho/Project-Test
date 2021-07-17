@@ -1,2 +1,2 @@
-npm i 
-json-server --watch data.json --port 3000
+## npm i 
+## json-server --watch data.json --port 3000
