@@ -1,3 +1,5 @@
+import axios from "axios";
+
 export const filterByResult = (arr1, arr2, item) => {
   return arr1.filter((a) => a.id_question === item.id && a.checked === true)
     .length > 0
@@ -50,3 +52,13 @@ export const format_second_to_minutes = (sec) => {
   sec.toString().length === 1 ? (sec = "0" + sec) : void 0;
   return min + ":" + sec;
 };
+
+
+//fetch 
+
+export function fetchUsers(method,url){
+  return axios({
+    method: method,
+    url: url
+  });
+}

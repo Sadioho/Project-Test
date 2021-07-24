@@ -50,7 +50,7 @@ export default function Signup(props) {
 
   async function submitForm(data) {
     let data2 = { ...data, time: null, point: null };
-    let countAccount = props.listUser.filter((item) => {
+    let countAccount = props.isSuccessAccount &&  props.dataAccount.filter((item) => {
       return item.email === data.email;
     });
     if (countAccount.length > 0) {
@@ -177,8 +177,8 @@ export default function Signup(props) {
                 width="130px"
                 margin="unset"
                 background="rgb(167, 86, 252)"
-                backgroundColor="#B8B5FF"
-                borderRadius="100px"
+                backgroundcolor="#B8B5FF"
+                borderradius="100px"
                 float="right"
               >
                 Đăng ký

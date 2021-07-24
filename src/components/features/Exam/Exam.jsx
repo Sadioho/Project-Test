@@ -3,7 +3,7 @@ import {
   CardActions,
   CardContent,
   makeStyles,
-  Typography
+  Typography,
 } from "@material-ui/core";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
@@ -29,13 +29,15 @@ const useStyles = makeStyles({
 export default function Exam(props) {
   const [tutorial, setTutorial] = useState(false);
   const classes = useStyles();
-  let arrUser = props.listUser.sort((a, b) =>
-    b.point - a.point === 0 ? a.time - b.time : b.point - a.point
-  );
-  function resetData(){
+  let arrUser = props.dataAccount
+    .slice()
+    .sort((a, b) =>
+      b.point - a.point === 0 ? a.time - b.time : b.point - a.point
+    );
+
+  function resetData() {
     props.setListResult([]);
     props.setendResult(false);
-
   }
   return (
     <div className="header__content exam">
@@ -123,9 +125,9 @@ export default function Exam(props) {
                 margin="20px 0"
                 padding="10px 10px"
                 background="rgb(167, 86, 252)"
-                backgroundColor="#B8B5FF"
-                borderRadius="100px"
-                onClick={resetData }
+                backgroundcolor="#B8B5FF"
+                borderradius="100px"
+                onClick={resetData}
               >
                 <ArrowBackIosIcon />
                 Quay lại
@@ -165,8 +167,8 @@ export default function Exam(props) {
                     margin="unset"
                     padding="10px 10px"
                     background="rgb(167, 86, 252)"
-                    backgroundColor="#B8B5FF"
-                    borderRadius="100px"
+                    backgroundcolor="#B8B5FF"
+                    borderradius="100px"
                     onClick={() => setTutorial(false)}
                   >
                     <ArrowBackIosIcon />
@@ -176,8 +178,8 @@ export default function Exam(props) {
                     <ButtonV2
                       margin="unset"
                       background="rgb(167, 86, 252)"
-                      backgroundColor="#B8B5FF"
-                      borderRadius="100px"
+                      backgroundcolor="#B8B5FF"
+                      borderradius="100px"
                     >
                       Bắt đầu thi
                       <ArrowForwardIosIcon />
@@ -204,7 +206,7 @@ export default function Exam(props) {
                   width="100px"
                   padding="5px"
                   background="rgb(167, 86, 252)"
-                  backgroundColor="#B8B5FF"
+                  backgroundcolor="#B8B5FF"
                   onClick={() => setTutorial(true)}
                 >
                   Bắt đầu

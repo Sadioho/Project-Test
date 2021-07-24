@@ -7,7 +7,7 @@ import {
   makeStyles,
   Modal,
   Radio,
-  RadioGroup,
+  RadioGroup
 } from "@material-ui/core";
 import AccessAlarmsIcon from "@material-ui/icons/AccessAlarms";
 import ArrowLeftIcon from "@material-ui/icons/ArrowLeft";
@@ -21,7 +21,7 @@ import {
   countResult,
   defaultChecked,
   filterByResult,
-  format_second_to_minutes,
+  format_second_to_minutes
 } from "../../helpers";
 import { Spinner } from "../../spinner/Spinner";
 import "./style.scss";
@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "10px",
   },
 }));
-export default function ListQuestion(props) {
+ function ListQuestion(props) {
   const classes = useStyles();
   const history = useHistory();
 
@@ -50,6 +50,8 @@ export default function ListQuestion(props) {
   const [timePause, setTimePause] = useState(0);
 
   const data = props.data;
+  
+  console.log(data);
   const dataLength = props.data.length;
   const [numberQuestion, setNumberQuestion] = useState(0);
 
@@ -76,7 +78,7 @@ export default function ListQuestion(props) {
       time: time,
       point: point,
     };
-    let checkPoint = props.listUser.find((item) => item.id === id);
+    let checkPoint = props.isSuccessAccount && props.dataAccount.find((item) => item.id === id);
     if (checkPoint.point === null && checkPoint.time === null) {
       await fetch(`http://localhost:3000/users/${id}`, {
         method: "PATCH",
@@ -85,7 +87,7 @@ export default function ListQuestion(props) {
           "Content-Type": "application/json",
           Accept: "application/json",
         },
-      });
+      }); 
       props.setreload(ramdomID);
     } else {
       if (checkPoint.point < point) {
@@ -146,6 +148,10 @@ export default function ListQuestion(props) {
       : setlistReview([...listReview, obj]);
   }
 
+
+  console.log("co lisstquesn",props.statusFlags);
+
+
   return (
     <div className="header__content exam list-question ">
       <div className="list-question__header">
@@ -164,7 +170,7 @@ export default function ListQuestion(props) {
         </Container>
       </div>
       <div className="list-question__content">
-        {props.isLoading ? (
+        {!props.statusFlags ? (
           <Container className="list-question__header_question">
             <div className="list-question__header_content-question">
               <h3>{data[numberQuestion].name}</h3>
@@ -228,8 +234,8 @@ export default function ListQuestion(props) {
             <ButtonV2
               margin="unset"
               background="#7b4fff"
-              backgroundColor="#B8B5FF"
-              borderRadius="100px"
+              backgroundcolor="#B8B5FF"
+              borderradius="100px"
               onClick={minus}
               disabled={numberQuestion === 0 ? true : false}
             >
@@ -239,8 +245,8 @@ export default function ListQuestion(props) {
             <ButtonV2
               margin="0 10px"
               background="#7b4fff"
-              backgroundColor="#B8B5FF"
-              borderRadius="100px"
+              backgroundcolor="#B8B5FF"
+              borderradius="100px"
               onClick={plus}
               disabled={numberQuestion === data.length - 1 ? true : false}
             >
@@ -271,8 +277,8 @@ export default function ListQuestion(props) {
               margin="0 10px"
               padding="10px 10px"
               background="#7b4fff"
-              backgroundColor="#B8B5FF"
-              borderRadius="100px"
+              backgroundcolor="#B8B5FF"
+              borderradius="100px"
               onClick={handleOpen}
             >
               Nộp bài
@@ -310,8 +316,8 @@ export default function ListQuestion(props) {
               <ButtonV2
                 margin="0 10px"
                 background="#7b4fff"
-                backgroundColor="#B8B5FF"
-                borderRadius="100px"
+                backgroundcolor="#B8B5FF"
+                borderradius="100px"
                 onClick={handleFinish}
               >
                 Nộp bài
@@ -319,8 +325,8 @@ export default function ListQuestion(props) {
               <ButtonV2
                 margin="0 10px"
                 background="#7b4fff"
-                backgroundColor="#B8B5FF"
-                borderRadius="100px"
+                backgroundcolor="#B8B5FF"
+                borderradius="100px"
                 onClick={handleClose}
               >
                 Làm tiếp
@@ -332,3 +338,7 @@ export default function ListQuestion(props) {
     </div>
   );
 }
+
+
+
+export default ListQuestion; 

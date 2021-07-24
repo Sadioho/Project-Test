@@ -43,18 +43,19 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Header(props) {
   const classes = useStyles();
-  const user = JSON.parse(localStorage.getItem("my-info"));
   const history = useHistory();
   function signout() {
+    props.triggerLogout();
     props.setloginSuccess(false);
     props.setListResult([]);
     props.setendResult(false);
     localStorage.removeItem("my-info");
     history.push("/login");
   }
+
   return (
     <div className="header">
-      {props.loginSuccess === true ? (
+      {props.isSuccessLogin ? (
         <div className="header-login">
           <AppBar position="static" className="bg_login">
             <Toolbar className={classes.root2}>
@@ -62,7 +63,7 @@ export default function Header(props) {
               <label forhtml="check-logout" className="user-name">
                 <AccountCircleIcon color="primary" className="icon-user" />
                 <span>
-                  {user.firstName} {user.lastName}
+                  {props.accountLogin.firstName}  {props.accountLogin.lastName} 
                 </span>
                 <ArrowDropDownIcon />
                 <input type="checkbox" id="check-logout" />

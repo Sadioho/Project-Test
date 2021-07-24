@@ -248,7 +248,7 @@
       "email": "hoxuananh9.3@gmail.com",
       "password": "1234",
       "confirmPassword": "1234",
-      "time": 22,
+      "time": 9,
       "point": 10,
       "id": 1
     },
@@ -281,6 +281,16 @@
       "time": 3,
       "point": 0,
       "id": 4
+    },
+    {
+      "firstName": "haha",
+      "lastName": "ahahha",
+      "email": "hoxuananh9.3@gmail.comdđ",
+      "password": "1234",
+      "confirmPassword": "1234",
+      "time": null,
+      "point": null,
+      "id": 5
     }
   ]
 }

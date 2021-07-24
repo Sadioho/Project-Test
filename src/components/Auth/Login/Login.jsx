@@ -42,6 +42,7 @@ export default function Login(props) {
 
   const classes = useStyles();
   const [loginError, setLoginError] = useState(false);
+  
   let history = useHistory();
 
   function setLoginErrorV2() {
@@ -49,16 +50,24 @@ export default function Login(props) {
   }
 
   const submitForm = (data) => {
-    let checkLogin = props.listUser.filter(
+    let checkLogin = props.isSuccessAccount &&  props.dataAccount.filter(
       (item) => item.email === data.email && item.password === data.password
     );
     if (checkLogin.length === 1) {
+      console.log("chgecklog",checkLogin);
       localStorage.setItem("my-info", JSON.stringify(checkLogin[0]));
+    let user={ 
+      firstName:checkLogin[0].firstName,
+      lastName:checkLogin[0].lastName
+    }
+      props.triggerLogin(user)
+      
       props.setloginSuccess(true);
       history.push("/exam");
     } else {
-      setLoginErrorV2();
+      setLoginErrorV2(); 
     }
+
   };
 
   return (
@@ -72,6 +81,7 @@ export default function Login(props) {
             className={classes.form}
             noValidate
             onSubmit={handleSubmit(submitForm)}
+            // onSubmit={handleSubmit()}
           >
             <TextField
               variant="outlined"
@@ -127,8 +137,8 @@ export default function Login(props) {
                 width="100px"
                 margin="unset"
                 background="rgb(167, 86, 252)"
-                backgroundColor="#B8B5FF"
-                borderRadius="100px"
+                backgroundcolor="#B8B5FF"
+                borderradius="100px"
               >
                 Login
               </ButtonV2>

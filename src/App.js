@@ -1,59 +1,57 @@
-import React, { useEffect, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
+import { connect } from "react-redux";
 import {
   BrowserRouter as Router,
   Redirect,
   Route,
-  Switch
+  Switch,
 } from "react-router-dom";
+import { compose } from "redux";
+import { createStructuredSelector } from "reselect";
 import Login from "../src/components/Auth/Login/Login";
 import Signup from "../src/components/Auth/Signup/Signup";
 import Exam from "../src/components/features/Exam/Exam";
-import Main from "./components/Layout/Main/Main";
 import ListQuestion from "./components/features/ListQuestion/ListQuestion";
 import Header from "./components/Layout/Header/Header";
-import { _isEmpty } from "./components/helpers/index";
-import axios from "axios";
+import Main from "./components/Layout/Main/Main";
+import { getDataAccount } from "./redux/actions/account";
+import { loginAcount, logoutAcount } from "./redux/actions/login";
+import { getListQuestion } from "./redux/actions/question";
+import {
+  makeSelectAccount,
+  makeSelectStatusFlagsAccount,
+} from "./redux/selectors/accounts";
+import {
+  makeSelectIsSuccessLogin,
+  makeSelectLogin,
+} from "./redux/selectors/login";
+import {
+  makeSelectQuestion,
+  makeSelectStatusFlagsQ,
+} from "./redux/selectors/questions";
 
 export const DataApp = React.createContext(null);
 
-export default function App() {
-  const [listUser, setlistUser] = useState([]);
+function App(props) {
   const [reload, setreload] = useState();
   const [loginSuccess, setloginSuccess] = useState(false);
   const [endResult, setendResult] = useState(false);
   const [listResult, setListResult] = useState([]);
   const [showResult, setShowResult] = useState(0);
   const [time, setTime] = useState(null);
-  const [data, setData] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-
-  async function fetchUsers() {
-    const requestUrl = "http://localhost:3000/users";
-    // const response = await fetch(requestUrl);
-    // const responseJSON = await response.json();
-    const responseJSON=await axios.get(requestUrl)
-    console.log(responseJSON.data);
-    setlistUser(responseJSON.data);
-  }
 
   useEffect(() => {
-    async function fetchListQuestion() {
-      const requestUrl = "http://localhost:3000/list_question";
-      const response = await fetch(requestUrl);
-      const responseJSON = await response.json();
-      setData(responseJSON);
-      setIsLoading(true);
-    }
-    fetchListQuestion();
-    if (!_isEmpty(localStorage.getItem("my-info"))) {
+    if (props.isSuccessLogin) {
       setloginSuccess(true);
     }
+    props.triggerGetListQuestion();
   }, []);
 
   useEffect(() => {
-    fetchUsers();
+    props.triggerGetListAccount();
   }, [reload]);
 
+  console.log("flag", props.statusFlags);
   return (
     <Router>
       <Header
@@ -61,13 +59,21 @@ export default function App() {
         setendResult={setendResult}
         setloginSuccess={setloginSuccess}
         setListResult={setListResult}
+        isSuccessLogin={props.isSuccessLogin}
+        accountLogin={props.accountLogin}
+        triggerLogout={props.triggerLogout}
       />
       <Switch>
         <Route
           path="/login"
           render={() => {
-            return _isEmpty(localStorage.getItem("my-info")) ? (
-              <Login setloginSuccess={setloginSuccess} listUser={listUser} />
+            return !props.isSuccessLogin ? (
+              <Login
+                setloginSuccess={setloginSuccess}
+                dataAccount={props.dataAccount}
+                isSuccessAccount={props.isSuccessAccount.isSuccess}
+                triggerLogin={props.triggerLogin}
+              />
             ) : (
               <Redirect to="/" />
             );
@@ -76,10 +82,11 @@ export default function App() {
         <Route
           path="/signup"
           render={() => {
-            return _isEmpty(localStorage.getItem("my-info")) ? (
+            return !props.isSuccessLogin ? (
               <Signup
                 setloginSuccess={setloginSuccess}
-                listUser={listUser}
+                dataAccount={props.dataAccount}
+                isSuccessAccount={props.isSuccessAccount.isSuccess}
                 setreload={setreload}
               />
             ) : (
@@ -90,13 +97,14 @@ export default function App() {
         <Route
           path="/exam"
           render={() => {
-            return !_isEmpty(localStorage.getItem("my-info")) ? (
+            return props.isSuccessLogin ? (
               <Exam
                 endResult={endResult}
-                data={data}
+                data={props.listQuestion}
                 showResult={showResult}
                 time={time}
-                listUser={listUser}
+                dataAccount={props.dataAccount}
+                isSuccessAccount={props.isSuccessAccount.isSuccess}
                 listResult={listResult}
                 setListResult={setListResult}
                 setendResult={setendResult}
@@ -110,17 +118,18 @@ export default function App() {
         <Route
           path="/question"
           render={() => {
-            return !_isEmpty(localStorage.getItem("my-info")) ? (
+            return props.isSuccessLogin ? (
               <ListQuestion
                 setendResult={setendResult}
-                data={data}
-                isLoading={isLoading}
+                data={props.listQuestion}
+                statusFlags={props.statusFlags.isLoading}
                 listResult={listResult}
                 setListResult={setListResult}
                 showResult={showResult}
                 setShowResult={setShowResult}
                 setTime={setTime}
-                listUser={listUser}
+                dataAccount={props.dataAccount}
+                isSuccessAccount={props.isSuccessAccount.isSuccess}
                 setreload={setreload}
               />
             ) : (
@@ -132,13 +141,14 @@ export default function App() {
         <Route
           path="/"
           render={() => {
-            return !_isEmpty(localStorage.getItem("my-info")) ? (
+            return props.isSuccessLogin ? (
               <Exam
                 endResult={endResult}
                 showResult={showResult}
-                data={data}
+                data={props.listQuestion}
                 time={time}
-                listUser={listUser}
+                dataAccount={props.dataAccount}
+                isSuccessAccount={props.isSuccessAccount.isSuccess}
                 setendResult={setendResult}
                 listResult={listResult}
                 setListResult={setListResult}
@@ -152,3 +162,26 @@ export default function App() {
     </Router>
   );
 }
+
+const mapStateToProps = createStructuredSelector({
+  statusFlags: makeSelectStatusFlagsQ(),
+  listQuestion: makeSelectQuestion(),
+  dataAccount: makeSelectAccount(),
+  isSuccessAccount: makeSelectStatusFlagsAccount(),
+  //login
+  isSuccessLogin: makeSelectIsSuccessLogin(),
+  accountLogin: makeSelectLogin(),
+});
+
+function mapDispatchToProps(dispatch) {
+  return {
+    triggerGetListQuestion: () => dispatch(getListQuestion()),
+    triggerGetListAccount: () => dispatch(getDataAccount()),
+    triggerLogin: (user) => dispatch(loginAcount(user)),
+    triggerLogout: () => dispatch(logoutAcount()),
+  };
+}
+
+const withConnect = connect(mapStateToProps, mapDispatchToProps);
+
+export default compose(withConnect, memo)(App);
