@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
   content: {
     display: "flex",
     justifyContent: "space-around",
-    padding: "20px 10px",
+    padding: "20px 10px", 
     alignItems: "center",
   },
 }));
@@ -46,7 +46,7 @@ export default function Header(props) {
   const history = useHistory();
   function signout() {
     props.triggerLogout();
-    props.setloginSuccess(false);
+    // props.setloginSuccess(false);
     props.setListResult([]);
     props.setendResult(false);
     localStorage.removeItem("my-info");
@@ -55,7 +55,7 @@ export default function Header(props) {
 
   return (
     <div className="header">
-      {props.isSuccessLogin ? (
+      {props.loginSuccess ? (
         <div className="header-login">
           <AppBar position="static" className="bg_login">
             <Toolbar className={classes.root2}>

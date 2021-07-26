@@ -41,21 +41,19 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "10px",
   },
 }));
- function ListQuestion(props) {
+function ListQuestion(props) {
   const classes = useStyles();
   const history = useHistory();
-
   const [open, setOpen] = useState(false);
   const [timeCountDown, setTimeCountDown] = useState(0);
   const [timePause, setTimePause] = useState(0);
-
   const data = props.data;
-  
-  console.log(data);
   const dataLength = props.data.length;
   const [numberQuestion, setNumberQuestion] = useState(0);
 
   const handleOpen = () => {
+    props.triggerGetListAccount();
+
     setOpen(true);
     setTimePause(timeCountDown);
   };
@@ -64,22 +62,20 @@ const useStyles = makeStyles((theme) => ({
   };
 
   async function handleFinish() {
-    let ramdomID = Math.random().toString(36).substring(7);
+    props.triggerGetListAccount();
     props.setendResult(true);
-    history.push("/");
     let count = countResult(props.listResult, data, 0);
     props.setShowResult(count);
     props.setTime(timePause);
-
+    let id = JSON.parse(localStorage.getItem("my-info")).id;
     let time = 2700 - timePause;
     let point = count * 1;
-    let id = JSON.parse(localStorage.getItem("my-info")).id;
     let dataPatch = {
       time: time,
       point: point,
     };
-    let checkPoint = props.isSuccessAccount && props.dataAccount.find((item) => item.id === id);
-    if (checkPoint.point === null && checkPoint.time === null) {
+    let checkPoint =props.isSuccessAccount && props.dataAccount.find((item) => item.id === id);
+    if (checkPoint.point === 0 && checkPoint.time === 0) {
       await fetch(`http://localhost:3000/users/${id}`, {
         method: "PATCH",
         body: JSON.stringify(dataPatch),
@@ -87,8 +83,7 @@ const useStyles = makeStyles((theme) => ({
           "Content-Type": "application/json",
           Accept: "application/json",
         },
-      }); 
-      props.setreload(ramdomID);
+      });
     } else {
       if (checkPoint.point < point) {
         await fetch(`http://localhost:3000/users/${id}`, {
@@ -99,7 +94,6 @@ const useStyles = makeStyles((theme) => ({
             Accept: "application/json",
           },
         });
-        props.setreload(ramdomID);
       }
       if (checkPoint.point === point) {
         if (checkPoint.time > time) {
@@ -111,7 +105,6 @@ const useStyles = makeStyles((theme) => ({
               Accept: "application/json",
             },
           });
-          props.setreload(ramdomID);
         }
       }
     }
@@ -147,10 +140,6 @@ const useStyles = makeStyles((theme) => ({
       ? setlistReview([...check, obj])
       : setlistReview([...listReview, obj]);
   }
-
-
-  console.log("co lisstquesn",props.statusFlags);
-
 
   return (
     <div className="header__content exam list-question ">
@@ -339,6 +328,4 @@ const useStyles = makeStyles((theme) => ({
   );
 }
 
-
-
-export default ListQuestion; 
+export default ListQuestion;

@@ -14,13 +14,14 @@ import Exam from "../src/components/features/Exam/Exam";
 import ListQuestion from "./components/features/ListQuestion/ListQuestion";
 import Header from "./components/Layout/Header/Header";
 import Main from "./components/Layout/Main/Main";
-import { getDataAccount } from "./redux/actions/account";
-import { loginAcount, logoutAcount } from "./redux/actions/login";
-import { getListQuestion } from "./redux/actions/question";
 import {
-  makeSelectAccount,
-  makeSelectStatusFlagsAccount,
-} from "./redux/selectors/accounts";
+  loginAcount,
+  logoutAcount,
+  resetFlags,
+  sigupAccount,
+} from "./redux/actions/login";
+import { getListQuestion } from "./redux/actions/question";
+import { getDataAccount } from "./redux/actions/account";
 import {
   makeSelectIsSuccessLogin,
   makeSelectLogin,
@@ -30,36 +31,29 @@ import {
   makeSelectStatusFlagsQ,
 } from "./redux/selectors/questions";
 
+import {
+  makeSelectAccount,
+  makeSelectStatusFlagsAccount,
+} from "./redux/selectors/accounts";
+
 export const DataApp = React.createContext(null);
 
 function App(props) {
-  const [reload, setreload] = useState();
-  const [loginSuccess, setloginSuccess] = useState(false);
   const [endResult, setendResult] = useState(false);
   const [listResult, setListResult] = useState([]);
   const [showResult, setShowResult] = useState(0);
   const [time, setTime] = useState(null);
 
   useEffect(() => {
-    if (props.isSuccessLogin) {
-      setloginSuccess(true);
-    }
     props.triggerGetListQuestion();
   }, []);
 
-  useEffect(() => {
-    props.triggerGetListAccount();
-  }, [reload]);
-
-  console.log("flag", props.statusFlags);
   return (
     <Router>
       <Header
-        loginSuccess={loginSuccess}
         setendResult={setendResult}
-        setloginSuccess={setloginSuccess}
         setListResult={setListResult}
-        isSuccessLogin={props.isSuccessLogin}
+        loginSuccess={props.statusFlagsLogin.loginSuccess}
         accountLogin={props.accountLogin}
         triggerLogout={props.triggerLogout}
       />
@@ -67,12 +61,12 @@ function App(props) {
         <Route
           path="/login"
           render={() => {
-            return !props.isSuccessLogin ? (
+            return !props.statusFlagsLogin.loginSuccess ? (
               <Login
-                setloginSuccess={setloginSuccess}
-                dataAccount={props.dataAccount}
-                isSuccessAccount={props.isSuccessAccount.isSuccess}
                 triggerLogin={props.triggerLogin}
+                loginSuccess={props.statusFlagsLogin.loginSuccess}
+                loginFailure={props.statusFlagsLogin.loginFailure}
+                triggerResetFlagsAuth={props.triggerResetFlagsAuth}
               />
             ) : (
               <Redirect to="/" />
@@ -82,12 +76,14 @@ function App(props) {
         <Route
           path="/signup"
           render={() => {
-            return !props.isSuccessLogin ? (
+            return !props.statusFlagsLogin.loginSuccess ? (
               <Signup
-                setloginSuccess={setloginSuccess}
-                dataAccount={props.dataAccount}
-                isSuccessAccount={props.isSuccessAccount.isSuccess}
-                setreload={setreload}
+                triggerSigup={props.triggerSigup}
+                loginSuccess={props.statusFlagsLogin.loginSuccess}
+                loginFailure={props.statusFlagsLogin.sigupFailure}
+        
+                triggerGetListAccount={props.triggerGetListAccount}
+                triggerResetFlagsAuth={props.triggerResetFlagsAuth}
               />
             ) : (
               <Redirect to="/" />
@@ -97,7 +93,7 @@ function App(props) {
         <Route
           path="/exam"
           render={() => {
-            return props.isSuccessLogin ? (
+            return props.statusFlagsLogin.loginSuccess ? (
               <Exam
                 endResult={endResult}
                 data={props.listQuestion}
@@ -105,6 +101,7 @@ function App(props) {
                 time={time}
                 dataAccount={props.dataAccount}
                 isSuccessAccount={props.isSuccessAccount.isSuccess}
+                loginSuccess={props.statusFlagsLogin.loginSuccess}
                 listResult={listResult}
                 setListResult={setListResult}
                 setendResult={setendResult}
@@ -118,7 +115,7 @@ function App(props) {
         <Route
           path="/question"
           render={() => {
-            return props.isSuccessLogin ? (
+            return props.statusFlagsLogin.loginSuccess ? (
               <ListQuestion
                 setendResult={setendResult}
                 data={props.listQuestion}
@@ -129,8 +126,9 @@ function App(props) {
                 setShowResult={setShowResult}
                 setTime={setTime}
                 dataAccount={props.dataAccount}
-                isSuccessAccount={props.isSuccessAccount.isSuccess}
-                setreload={setreload}
+                isSuccessAccount={props.isSuccessAccount.isSuccess} 
+                loginSuccess={props.statusFlagsLogin.loginSuccess}
+                triggerGetListAccount={props.triggerGetListAccount}
               />
             ) : (
               <Redirect to="/" />
@@ -141,17 +139,19 @@ function App(props) {
         <Route
           path="/"
           render={() => {
-            return props.isSuccessLogin ? (
+            return props.statusFlagsLogin.loginSuccess ? (
               <Exam
                 endResult={endResult}
                 showResult={showResult}
                 data={props.listQuestion}
                 time={time}
                 dataAccount={props.dataAccount}
+                loginSuccess={props.statusFlagsLogin.loginSuccess}
                 isSuccessAccount={props.isSuccessAccount.isSuccess}
                 setendResult={setendResult}
                 listResult={listResult}
                 setListResult={setListResult}
+              
               />
             ) : (
               <Main />
@@ -168,8 +168,7 @@ const mapStateToProps = createStructuredSelector({
   listQuestion: makeSelectQuestion(),
   dataAccount: makeSelectAccount(),
   isSuccessAccount: makeSelectStatusFlagsAccount(),
-  //login
-  isSuccessLogin: makeSelectIsSuccessLogin(),
+  statusFlagsLogin: makeSelectIsSuccessLogin(),
   accountLogin: makeSelectLogin(),
 });
 
@@ -178,7 +177,11 @@ function mapDispatchToProps(dispatch) {
     triggerGetListQuestion: () => dispatch(getListQuestion()),
     triggerGetListAccount: () => dispatch(getDataAccount()),
     triggerLogin: (user) => dispatch(loginAcount(user)),
+
     triggerLogout: () => dispatch(logoutAcount()),
+    triggerSigup: (user) => dispatch(sigupAccount(user)),
+    //resetpass
+    triggerResetFlagsAuth: () => dispatch(resetFlags()),
   };
 }
 

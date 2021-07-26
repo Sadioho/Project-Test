@@ -2,8 +2,13 @@ import {
   Card,
   CardActions,
   CardContent,
+  CircularProgress, List,
+  ListItem,
+  ListItemAvatar,
+  ListItemSecondaryAction,
+  ListItemText,
   makeStyles,
-  Typography,
+  Typography
 } from "@material-ui/core";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
@@ -18,27 +23,25 @@ import ButtonV2 from "../../common/button/ButtonV2";
 import { format_second_to_minutes } from "../../helpers";
 import "./style.scss";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: 275,
   },
   title: {
     fontSize: 20,
   },
-});
+  titleV2: {
+    flexGrow:1,
+  },
+}));
 export default function Exam(props) {
   const [tutorial, setTutorial] = useState(false);
   const classes = useStyles();
-  let arrUser = props.dataAccount
-    .slice()
-    .sort((a, b) =>
-      b.point - a.point === 0 ? a.time - b.time : b.point - a.point
-    );
-
   function resetData() {
     props.setListResult([]);
     props.setendResult(false);
   }
+  console.log("dataExam",props.dataAccount);
   return (
     <div className="header__content exam">
       <div className="exam__content">
@@ -54,28 +57,46 @@ export default function Exam(props) {
               <div className="result">
                 <div className="result-item result-rank">
                   <img src={rank} alt="" />
-                  <table>
-                    <tbody>
-                      <tr>
-                        <th>Tên</th>
-                        <th>Điểm</th>
-                        <th>Thời gian</th>
-                      </tr>
-                      {arrUser.map(
-                        (item, index) =>
-                          index < 7 &&
-                          item.point >= 7 && (
-                            <tr key={index}>
-                              <td>
-                                🥇{item.firstName} {item.lastName}
-                              </td>
-                              <td>{item.point}</td>
-                              <td>{format_second_to_minutes(item.time)}</td>
-                            </tr>
-                          )
-                      )}
-                    </tbody>
-                  </table>
+
+                  <List>
+                    <ListItem>
+                      <ListItemText>Họ và Tên</ListItemText>
+                      <ListItemText className={classes.titleV2}>Điểm</ListItemText>
+                      <ListItemSecondaryAction>
+                        Thời Gian
+                      </ListItemSecondaryAction>
+                    </ListItem>
+
+                    {props.isSuccessAccount ? (
+                      props.dataAccount
+                        .slice()
+                        .sort((a, b) =>
+                          b.point - a.point === 0
+                            ? a.time - b.time
+                            : b.point - a.point
+                        )
+                        .map(
+                          (item, index) =>
+                            index < 7 &&
+                            item.point >= 7 && (
+                              <ListItem key={index}>
+                                <ListItemText >
+                                  {item.firstName} {item.lastName}
+                                </ListItemText>
+                                <ListItemText className={classes.titleV2}>{item.point}</ListItemText>
+                                <ListItemSecondaryAction>
+                                  {format_second_to_minutes(item.time)}
+                                </ListItemSecondaryAction>
+                              </ListItem>
+                            )
+                        )
+                    ) : (
+                      <div>
+                        <CircularProgress />
+                      </div>
+                    )}
+                  </List>
+                  
                 </div>
                 <div className="result-item result-score">
                   <img src={score} alt="" />

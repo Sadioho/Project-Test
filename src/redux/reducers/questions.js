@@ -12,7 +12,7 @@ export const initialState = {
   },
   log: {
     error: "",
-  },
+  }, 
 }; 
 
 /* eslint-disable default-case, no-param-reassign */

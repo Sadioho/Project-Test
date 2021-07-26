@@ -243,54 +243,34 @@
   ],
   "users": [
     {
-      "firstName": "Anh",
-      "lastName": "Hồ",
+      "firstName": "ho ",
+      "lastName": "xanh",
       "email": "hoxuananh9.3@gmail.com",
       "password": "1234",
       "confirmPassword": "1234",
-      "time": 9,
-      "point": 10,
-      "id": 1
+      "time": 1,
+      "point": 3,
+      "id": "xbzzfo"
     },
     {
-      "firstName": "haha",
-      "lastName": "haha",
-      "email": "hoxuanan2h9.3@gmail.com",
+      "firstName": "tao",
+      "lastName": "nguyen",
+      "email": "taonguyen@gmail.com",
+      "password": "1234",
+      "confirmPassword": "1234",
+      "time": 6,
+      "point": 9,
+      "id": "73vb3"
+    },
+    {
+      "firstName": "bao ",
+      "lastName": "nguyen",
+      "email": "bao@gmail.com",
       "password": "1234",
       "confirmPassword": "1234",
       "time": 7,
-      "point": 6,
-      "id": 2
-    },
-    {
-      "firstName": "Lê Cường",
-      "lastName": "Quốc",
-      "email": "cuong@gmail.com",
-      "password": "1234",
-      "confirmPassword": "1234",
-      "time": 10,
-      "point": 8,
-      "id": 3
-    },
-    {
-      "firstName": "Anh1",
-      "lastName": "Hồ",
-      "email": "hoxuananh9.13@gmail.com",
-      "password": "1234",
-      "confirmPassword": "1234",
-      "time": 3,
-      "point": 0,
-      "id": 4
-    },
-    {
-      "firstName": "haha",
-      "lastName": "ahahha",
-      "email": "hoxuananh9.3@gmail.comdđ",
-      "password": "1234",
-      "confirmPassword": "1234",
-      "time": null,
-      "point": null,
-      "id": 5
+      "point": 10,
+      "id": "ko52vu"
     }
   ]
 }

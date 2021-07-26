@@ -2,11 +2,11 @@ import {
     GET_LIST_QUESTION,
     GET_LIST_QUESTION_SUCCESS, 
     GET_LIST_QUESTION_FAILED
-  } from "../constants/question"; 
+  } from "../constants/question";  
   
   export function getListQuestion() { 
     return {
-      type: GET_LIST_QUESTION,
+      type: GET_LIST_QUESTION, 
     };
   }
   

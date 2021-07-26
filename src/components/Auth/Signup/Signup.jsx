@@ -5,7 +5,7 @@ import {
   TextField,
   Typography
 } from "@material-ui/core";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useHistory } from "react-router-dom";
 import * as yup from "yup";
@@ -13,7 +13,7 @@ import LoginImg from "../../../image/login.png";
 import ButtonV2 from "../../common/button/ButtonV2";
 import { Spinner2 } from "../../spinner/Spinner2";
 
-
+ 
 
 const schema = yup.object().shape({
   firstName: yup.string().required(),
@@ -38,8 +38,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Signup(props) {
   const classes = useStyles();
-  const [errorsCheckAccount, seterrorsCheckAccount] = useState(true);
-  let history = useHistory();
   const {
     register,
     handleSubmit,
@@ -49,33 +47,15 @@ export default function Signup(props) {
   });
 
   async function submitForm(data) {
-    let data2 = { ...data, time: null, point: null };
-    let countAccount = props.isSuccessAccount &&  props.dataAccount.filter((item) => {
-      return item.email === data.email;
-    });
-    if (countAccount.length > 0) {
-      seterrorsCheckAccount(false);
-      console.log("trùng");
-    } else {
-      let ramdomID = Math.random().toString(36).substring(7);
-
-      let apiUser = await fetch("http://localhost:3000/users", {
-        method: "POST",
-        body: JSON.stringify(data2),
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-      });
-      apiUser = await apiUser.json();
-      console.log(apiUser);
-      localStorage.setItem("my-info", JSON.stringify(apiUser));
-      seterrorsCheckAccount(true);
-      props.setloginSuccess(true);
-      props.setreload(ramdomID);
-      history.push("/");
-    }
+    let randomID=Math.random().toString(36).substring(7).toString(36)
+    let data2 = { ...data, time: 0, point: 0 ,id:randomID};
+    props.triggerSigup(data2)
   }
+
+  useEffect(() => {
+    // eslint-disable-next-line no-unused-expressions
+   props.triggerResetFlagsAuth()
+  }, [])
 
   return (
     <div className="header__content">
@@ -131,7 +111,7 @@ export default function Signup(props) {
             <p className="login__errors">
               {errors.email && "Nhập đúng email"}{" "}
             </p>
-            {!errorsCheckAccount && (
+            {props.loginFailure && (
               <p className="login__errors"> Email đã tồn tại </p>
             )}
             <TextField
@@ -171,7 +151,7 @@ export default function Signup(props) {
             <div className="button-input">
               <div> </div>
               <div className={classes.icon_loading}>
-              {!errorsCheckAccount && <Spinner2/>}
+              {props.loginFailure && <Spinner2/>}
               <ButtonV2
                 type="submit"
                 width="130px"

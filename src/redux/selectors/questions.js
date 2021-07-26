@@ -2,7 +2,7 @@ import { createSelector } from "reselect";
 import { initialState } from "../reducers/questions";
 
 /**
- * Direct selector to the app state domain
+ * Direct selector to the app state domain 
  */
 
 const selectUserDomain = (state) => {
@@ -14,5 +14,6 @@ const makeSelectQuestion = () =>
 
 const makeSelectStatusFlagsQ = () =>
   createSelector(selectUserDomain, (substate) => substate.statusFlags);
+
 
 export { makeSelectQuestion, makeSelectStatusFlagsQ };
