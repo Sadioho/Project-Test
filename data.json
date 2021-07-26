@@ -248,8 +248,8 @@
       "email": "hoxuananh9.3@gmail.com",
       "password": "1234",
       "confirmPassword": "1234",
-      "time": 1,
-      "point": 3,
+      "time": 6,
+      "point": 10,
       "id": "xbzzfo"
     },
     {
@@ -271,6 +271,16 @@
       "time": 7,
       "point": 10,
       "id": "ko52vu"
+    },
+    {
+      "firstName": "thai ",
+      "lastName": "tran",
+      "email": "thai@gmail.com",
+      "password": "1234",
+      "confirmPassword": "1234",
+      "time": 3,
+      "point": 1,
+      "id": "hat8fg"
     }
   ]
 }

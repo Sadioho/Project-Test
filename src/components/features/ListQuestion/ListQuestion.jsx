@@ -64,6 +64,7 @@ function ListQuestion(props) {
   async function handleFinish() {
     props.triggerGetListAccount();
     props.setendResult(true);
+    history.push("/")
     let count = countResult(props.listResult, data, 0);
     props.setShowResult(count);
     props.setTime(timePause);
